@@ -5,21 +5,36 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Home</title>
-  <script src="script.js" defer></script>
+  <script src="addTask.js" defer></script>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <!--Maybe a nav bar for switching the tabs?-->
   <div id="task-container">
     <label for="task" id="task-lbl">Task Name:</label>
-    <input id="task" placeholder="Enter Task Here">
+    <input id="task" placeholder="Enter Task Here" type="text">
     <button id="enter">Enter</button>
   </div>
-  <div id="time-container">
-    <label for="interval" id="time-interval">Set Time Interval:</label>
-    <input id="interval" type="time" placeholder="Set Time Interval Here">
-    <button id="set">Set</button>
+
+  <label for="time-select">Pick Time Interval: </label>
+  <select name="timeframe" id="time-select">
+    <option value="">--Please Select Interval of Repeat--</option>
+    <option value="daily">Daily</option>
+    <option value="monthly">Monthly</option>
+    <option value="yearly">Yearly</option>
+  </select>
+
+  <div id="day-container" hidden>
+    <label for="day-interval" id="time-interval">Set Time Interval:</label>
+    <input id="day-interval" type="time" placeholder="Set Time Interval Here">
+    <button class="set">Set</button>
   </div>
-  
+  <div id="month-container" hidden>
+    <label for="month-interval" id="time-interval">Set Time Interval:</label>
+    <input id="month-interval" type="time" placeholder="Set Time Interval Here">
+    <button class="set">Set</button>
+  </div>
+
+  <button id="clear" onclick="clearStorage()">Clear</button>
 </body>
 </html>
