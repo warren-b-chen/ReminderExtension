@@ -24,15 +24,36 @@
     <option value="yearly">Yearly</option>
   </select>
 
-  <div id="day-container" hidden>
-    <label for="day-interval" id="time-interval">Set Time Interval:</label>
-    <input id="day-interval" type="time" placeholder="Set Time Interval Here">
+  <div id="dailies-container" hidden>
+    <label for="day-interval">Set Time Interval:</label>
+    <input id="daily-interval" type="range" min="1" max="60" value="0">
+    <p>Value: <span id="val-display"></span> min</p>
     <button class="set">Set</button>
+    <label for="monthly-rpt">Repeat? </label>
+    <input type="checkbox" class ="time-check" id="daily-rpt" value="Repeat">
+    <script>
+      let slider = document.getElementById("daily-interval");
+      let value = document.getElementById("val-display");
+      value.innerHTML = slider.value;
+
+      slider.oninput = function(){
+        value.innerHTML = this.value;
+      }
+    </script>
   </div>
   <div id="month-container" hidden>
-    <label for="month-interval" id="time-interval">Set Time Interval:</label>
+    <label for="month-interval">Set Time Interval:</label>
     <input id="month-interval" type="time" placeholder="Set Time Interval Here">
     <button class="set">Set</button>
+    <label for="monthly-rpt">Repeat Monthly: </label>
+    <input type="checkbox" class ="time-check" id="monthly-rpt" value="Repeat">
+  </div>
+  <div id="year-container" hidden>
+    <label for="year-interval">Set Time Interval:</label>
+    <input id="year-interval" type="datetime-local" placeholder="Set Time Interval Here">
+    <button class="set">Set</button>
+    <label for="yearly-rpt">Repeat Yearly: </label>
+    <input type="checkbox" class ="time-check" id="yearly-rpt" value="Repeat">
   </div>
 
   <button id="clear" onclick="clearStorage()">Clear</button>
