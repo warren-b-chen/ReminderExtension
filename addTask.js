@@ -48,25 +48,34 @@ let curr_task = localStorage.getItem(task)
 
 
 
-/*function displayCalendar(event){
-  const timeMenu = document.getElementById("time-select");
+function displayCalendar(event){
   console.log(event.target.value);
   if (event.target.value === 'daily') {
-    document.getElementById('month-year-container').hidden = true;
+    document.getElementById('year-container').hidden = true;
+    document.getElementById('month-container').hidden = true;
     document.getElementById('dailies-container').hidden = false;
   }
   else if(event.target.value === ""){
-    document.getElementById('month-year-container').hidden = true;
+    document.getElementById('year-container').hidden = true;
+    document.getElementById('month-container').hidden = true;
     document.getElementById('dailies-container').hidden = true;
   }
-  else{
+  else if(event.target.value==="monthly"){
+    document.getElementById('year-container').hidden = true;
+    document.getElementById('month-container').hidden = false;
     document.getElementById('dailies-container').hidden = true;
-    document.getElementById('month-year-container').hidden = false;
   }
+  else if(event.target.value==="yearly"){
+    document.getElementById('year-container').hidden = false;
+    document.getElementById('month-container').hidden = true;
+    document.getElementById('dailies-container').hidden = true;
+  }
+  //need to get time values into val
+  vals.append(event.target.value);
+};
 
-  Problem: tried to call via: displayCalendar(event), which the callback uses the return function
-  Solution: call w/: displayCalendar, this actually calls function
-}*/
+ // Problem: tried to call via: displayCalendar(event), which the callback uses the return function
+  //Solution: call w/: displayCalendar, this actually calls function
 
 
 function clearStorage(){
