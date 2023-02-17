@@ -4,12 +4,15 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Home</title>
+  <title>Tasks Home</title>
   <script src="addTask.js" defer></script>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <!--Maybe a nav bar for switching the tabs?-->
+  <nav>
+    <a href="tasks.html">Tasks and Reminders</a>
+  </nav>
   <div id="task-container">
     <label for="task" id="task-lbl">Task Name:</label>
     <input id="task" placeholder="Enter Task Here" type="text">
@@ -26,11 +29,11 @@
 
   <div id="dailies-container" hidden>
     <label for="day-interval">Set Time Interval:</label>
-    <input id="daily-interval" type="range" min="1" max="60" value="0">
+    <input id="daily-interval" type="range" min="1" max="120" value="0">
     <p>Value: <span id="val-display"></span> min</p>
     <button class="set">Set</button>
     <label for="monthly-rpt">Repeat? </label>
-    <input type="checkbox" class ="time-check" id="daily-rpt" value="Repeat">
+    <input type="checkbox" class ="time-choice" id="daily-rpt" value="Repeat">
     <script>
       let slider = document.getElementById("daily-interval");
       let value = document.getElementById("val-display");
@@ -43,17 +46,17 @@
   </div>
   <div id="month-container" hidden>
     <label for="month-interval">Set Time Interval:</label>
-    <input id="month-interval" type="time" placeholder="Set Time Interval Here">
-    <button class="set">Set</button>
+    <input id="month-interval" type="datetime-local">
+    <button class="set" id="month-set">Set</button>
     <label for="monthly-rpt">Repeat Monthly: </label>
-    <input type="checkbox" class ="time-check" id="monthly-rpt" value="Repeat">
+    <input type="checkbox" class ="time-choice" id="monthly-rpt" value="Repeat">
   </div>
   <div id="year-container" hidden>
     <label for="year-interval">Set Time Interval:</label>
-    <input id="year-interval" type="datetime-local" placeholder="Set Time Interval Here">
-    <button class="set">Set</button>
+    <input id="year-interval" type="datetime-local">
+    <button class="set" id="year-set">Set</button>
     <label for="yearly-rpt">Repeat Yearly: </label>
-    <input type="checkbox" class ="time-check" id="yearly-rpt" value="Repeat">
+    <input type="checkbox" class ="time-choice" id="yearly-rpt" value="Repeat">
   </div>
 
   <button id="clear" onclick="clearStorage()">Clear</button>
