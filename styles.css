@@ -4,21 +4,22 @@ html, body{
   height:100%;
   text-align: center;
   border: black solid 1px;
-
 }
+
 body{
   border: red solid 1px;
-
 }
+
 button{
   cursor: pointer;
 }
+
 #clear{
   position:fixed;
   bottom:50px;
   left:50%;
-
 }
+
 div{
   justify-content: center;
 }
