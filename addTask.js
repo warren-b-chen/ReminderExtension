@@ -1,12 +1,18 @@
-let vals = []
-let taskRepeat = false;
-
+let vals = [];
 //add task name into vals
-const add_task = document.querySelector('#enter');
-add_task.addEventListener('click', () => {
+/*add_task.addEventListener('click', () => {
+const add_task = document.querySelector('#set');
   const task_name = document.querySelector('#task').value;
-  vals.push(task_name);
-});
+  task = task_name;
+});*/
+
+let scale = document.getElementById("daily-interval");
+let scale_val = document.getElementById("val-display");
+scale_val.innerHTML = scale.value;
+function update_slider(){
+  scale_val.innerHTML = scale.value;
+}
+scale.addEventListener('input', update_slider)
 
 //make time options visible and select timeframe
 const timeChosen = document.querySelector('#time-select');
@@ -14,29 +20,39 @@ timeChosen.addEventListener('change', (event)=>{
   displayCalendar(event)
 });
 
-const monthTimeSet = document.querySelector("#month-interval");
-const yearTimeSet = document.querySelector('#year-interval');
-const monthSetButton = document.getElementById("month-set");
-const yearSetButton = document.getElementById("year-set");
-monthSetButton.addEventListener('click', ()=>{
-  getTime("month")
-  let repeat = document.getElementById("monthly-rpt").checked;
-  getRepeat(repeat, "month");
-  console.log(vals)
-});
-yearSetButton.addEventListener('click', ()=>{
-  getTime("year")
-  let repeat = document.getElementById("yearly-rpt").checked;
-  getRepeat(repeat, "year");
-});
+function timeSet(){
+  const timeChosen = document.querySelector('#time-select');
+  if(timeChosen.value === "monthly"){
+    vals.push("monthly")
+    getTime("month")
+    let repeat = document.getElementById("monthly-rpt").checked;
+    getRepeat(repeat, "month");
+    console.log(vals)
+  }
+  else if(timeChosen.value === "yearly"){
+    vals.push("yearly")
+    getTime("year")
+    let repeat = document.getElementById("yearly-rpt").checked;
+    getRepeat(repeat, "year");
+  }
+  else if(timeChosen.value === "daily"){
+    vals.push("daily")
+    let repeat = document.getElementById("daily-rpt").checked;
+    getRepeat(repeat, "daily");
+    let interval = scale.value;
+    vals.push(interval);
+  }
+}
 
 function getTime(time){
+  console.log("GETTIME FUNCTION CALLED");
   const date = document.querySelector(`#${time}-interval`);
   vals.push(date.value);
 }
 
 //need to get repeat, but also make sure no other checkbox is ticked
 function getRepeat(checked, time){
+  console.log("GETREPEAT FUNCTION CALLED")
   if (checked === false){
     return;
   }
@@ -44,11 +60,11 @@ function getRepeat(checked, time){
     vals.push("repeat")
   }
 }
-function addTask(task){
+function addTask(){
+  timeSet();
+  const task = document.querySelector('#task').value;
+  vals.push(task);
   localStorage.setItem(task, JSON.stringify(vals));
-}
-function getTask(task){
-  let curr_task = localStorage.getItem(task)
 }
 function displayCalendar(thing){
   if (thing.target.value === 'daily') {
@@ -71,8 +87,6 @@ function displayCalendar(thing){
     document.getElementById('month-container').hidden = true;
     document.getElementById('dailies-container').hidden = true;
   }
-  //need to get time values into val
-  vals.push(thing.target.value);
 };
 // Problem: tried to call via: displayCalendar(event), which the callback uses the return function
 //Solution: call w/: displayCalendar, this actually calls function, also use an anon func to call this func in the event listener and pass event as param
