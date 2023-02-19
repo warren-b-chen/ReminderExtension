@@ -16,7 +16,6 @@
   <div id="task-container">
     <label for="task" id="task-lbl">Task Name:</label>
     <input id="task" placeholder="Enter Task Here" type="text">
-    <button id="enter">Enter</button>
   </div>
 
   <label for="time-select">Pick Time Interval: </label>
@@ -31,34 +30,22 @@
     <label for="day-interval">Set Time Interval:</label>
     <input id="daily-interval" type="range" min="1" max="120" value="0">
     <p>Value: <span id="val-display"></span> min</p>
-    <button class="set">Set</button>
     <label for="monthly-rpt">Repeat? </label>
     <input type="checkbox" class ="time-choice" id="daily-rpt" value="Repeat">
-    <script>
-      let slider = document.getElementById("daily-interval");
-      let value = document.getElementById("val-display");
-      value.innerHTML = slider.value;
-
-      slider.oninput = function(){
-        value.innerHTML = this.value;
-      }
-    </script>
   </div>
   <div id="month-container" hidden>
     <label for="month-interval">Set Time Interval:</label>
     <input id="month-interval" type="datetime-local">
-    <button class="set" id="month-set">Set</button>
     <label for="monthly-rpt">Repeat Monthly: </label>
     <input type="checkbox" class ="time-choice" id="monthly-rpt" value="Repeat">
   </div>
   <div id="year-container" hidden>
     <label for="year-interval">Set Time Interval:</label>
     <input id="year-interval" type="datetime-local">
-    <button class="set" id="year-set">Set</button>
     <label for="yearly-rpt">Repeat Yearly: </label>
     <input type="checkbox" class ="time-choice" id="yearly-rpt" value="Repeat">
   </div>
-
+  <button id="set" onclick="addTask()">Add Task</button>
   <button id="clear" onclick="clearStorage()">Clear</button>
 </body>
 </html>
