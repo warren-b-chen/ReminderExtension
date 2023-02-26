@@ -1,9 +1,11 @@
-let task_details = [];
-
+let task_data = {};
 if(localStorage.length != 0){
-  const vals = Object.keys(localStorage);
-  vals.forEach(value =>
-    task_details.push(JSON.parse(localStorage.getItem(value))));
+  let task_names = Object.keys(localStorage);
+
+  for (let i = 0; i< task_names.length; i++){
+    let task_name = task_names[i];
+    Object.assign(task_data, {[task_name] : JSON.parse(localStorage.getItem(task_name))});
+  }
 }
 else{
   let task_list = document.getElementById("task-list");
@@ -12,10 +14,7 @@ else{
   noTasks.hidden = false;
 }
 
-//[time interval, repeat/empty, int or date time, string (title)]
-
 const table = document.getElementById("task-details");
-
 
 
 function createTaskRow(task){

@@ -1,4 +1,4 @@
-let vals = [];
+let vals = {};
 //add task name into vals
 /*add_task.addEventListener('click', () => {
 const add_task = document.querySelector('#set');
@@ -23,38 +23,38 @@ timeChosen.addEventListener('change', (event)=>{
 function timeSet(){
   const timeChosen = document.querySelector('#time-select');
   if(timeChosen.value === "monthly"){
-    vals.push("monthly")
+    Object.assign(vals, {time_frame:"monthly"});
     getTime("month")
     let repeat = document.getElementById("monthly-rpt").checked;
     getRepeat(repeat, "month");
   }
   else if(timeChosen.value === "yearly"){
-    vals.push("yearly")
+    Object.assign(vals, {time_frame:"yearly"});
     getTime("year")
     let repeat = document.getElementById("yearly-rpt").checked;
     getRepeat(repeat, "year");
   }
   else if(timeChosen.value === "daily"){
-    vals.push("daily")
+    Object.assign(vals, {time_frame:"daily"});
     let interval = scale.value;
-    vals.push(interval);
+    Object.assign(vals, {time_interval:interval});
     let repeat = document.getElementById("daily-rpt").checked;
     getRepeat(repeat, "daily");
   }
 }
 
 function getTime(time){
-  const date = document.querySelector(`#${time}-interval`);
-  vals.push(date.value);
+  const due_date = document.querySelector(`#${time}-interval`);
+  Object.assign(vals, {date:due_date.value});
 }
 
 //need to get repeat, but also make sure no other checkbox is ticked
 function getRepeat(checked, time){
   if (checked === false){
-    return;
+    Object.assign(vals, {repeat:"no repeat"});
   }
   else{
-    vals.push("repeat")
+    Object.assign(vals, {repeat:"repeat"});
   }
 }
 
@@ -63,9 +63,10 @@ function addTask(){
   timeSet();
   if(document.getElementById("form1").checkValidity() && document.getElementById("form2").checkValidity()){
     let task = document.querySelector('#task').value;
-    vals.push(task);
+    Object.assign(vals, {task_name:task});
+    console.log(vals)
     localStorage.setItem(task, JSON.stringify(vals));
-    vals = []
+    vals = {}
   } else{
     console.log("forms invalid")
   }
