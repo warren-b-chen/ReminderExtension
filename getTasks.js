@@ -98,7 +98,6 @@ function confirmation(task){
   }
 }
 function taskReminderAlert(task_name){
-  
   alert(`Reminder: ${task_name}`);
 }
 
