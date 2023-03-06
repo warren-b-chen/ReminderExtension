@@ -15,7 +15,6 @@ if(localStorage.length != 0){
 }
 else{
   let task_list = document.getElementById("task-list");
-  task_list.innerHTML = "";
   let noTasks = document.getElementById("no-tasks-disp");
   noTasks.hidden = false;
 }
@@ -45,13 +44,17 @@ for(let i=0; i<task_data_length; i++){
   let weeklies = getWeeklyTasks(Object.values(task_data)[i].date);
   if(weeklies === true){
     let newWeekly = document.createElement('td')
+    newWeekly.id = Object.keys(task_data)[i];
     newWeekly.textContent = Object.keys(task_data)[i];
     weekly_reminders.appendChild(newWeekly);
+    deleteButton(weekly_reminders, newWeekly.innerHTML, "weekly");
   }
   else if(weeklies == "daily"){
     let newDaily = document.createElement('td');
+    newDaily.id = Object.keys(task_data)[i];
     newDaily.textContent = Object.keys(task_data)[i];
     daily_reminders.appendChild(newDaily);
+    deleteButton(daily_reminders, newDaily.innerHTML, "daily");
   }
   else{
     console.log(getWeeklyTasks(Object.values(task_data)[i].date))
@@ -82,23 +85,57 @@ function getWeeklyTasks(task){
   }
 }
 
-function deleteButton(){
+function deleteButton(row, task_name, time_interval){
   let del_btn = document.createElement("button");
   del_btn.textContent = "Delete Reminder";
-  del_btn.addEventListener('click', confirmation)
+  row.appendChild(del_btn);
+  del_btn.addEventListener('click', (event) => {
+    confirmation(task_name, time_interval, event);
+  });
 }
 
-function confirmation(task){
-  let confirm_msg = `Confirm deleting ${task}?`;
+function confirmation(task_name, time_interval, event){
+  let confirm_msg = `Confirm deleting '${task_name}'?`;
   if(confirm(confirm_msg) == true){
-    removeTask
+    removeTask(task_name, time_interval, event)
   }
   else{
     confirm_msg = "Reminder not cancelled"
   }
 }
-function taskReminderAlert(task_name){
-  alert(`Reminder: ${task_name}`);
+
+function removeTask(task_name, time_interval, event){
+  if (time_interval == "weekly"){
+    let rmv_child = document.getElementById(task_name);
+    weekly_reminders.removeChild(rmv_child);
+    localStorage.removeItem(task_name);
+    event.currentTarget.remove();
+  }
+  else if(time_interval == "daily"){
+    let rmv_child = document.getElementById(task_name);
+    daily_reminders.removeChild(rmv_child);
+    localStorage.removeItem(task_name);
+    event.currentTarget.remove();
+  }
+}
+
+function removeDelBtn(event){
+  event.currentTarget.parentElement.remove();
+}
+
+function taskReminderAlert(task_values){
+  if(task_values.time_frame == "daily"){
+    let time_interval = task_values.time_interval;
+    let converted_interval = time_interval*60*1000;
+    let task_name_interval = task_values.task_name;
+    task_name_interval = Interval(alert(`Reminder: ${task_values.task_name}`), converted_interval);
+  }
+  else if(task_values.time_frame == "monthly" || task_values.time_frame == "yearly"){
+    let converted_date =  new Date(task_values.date);
+    if(CURR_DATE == converted_date){
+      alert(`Reminder: ${task_values.task_name}`);
+    }
+  }
 }
 
 
