@@ -123,7 +123,7 @@ function removeDelBtn(event){
   event.currentTarget.parentElement.remove();
 }
 
-function taskReminderAlert(task_values){
+function setTaskReminderAlert(task_values){
   if(task_values.time_frame == "daily"){
     let time_interval = task_values.time_interval;
     let converted_interval = time_interval*60*1000;
