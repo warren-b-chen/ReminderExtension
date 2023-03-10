@@ -1,4 +1,4 @@
-let vals = [];
+let vals = {};
 //add task name into vals
 /*add_task.addEventListener('click', () => {
 const add_task = document.querySelector('#set');
@@ -23,54 +23,63 @@ timeChosen.addEventListener('change', (event)=>{
 function timeSet(){
   const timeChosen = document.querySelector('#time-select');
   if(timeChosen.value === "monthly"){
-    vals.push("monthly")
+    Object.assign(vals, {time_frame:"monthly"});
     getTime("month")
     let repeat = document.getElementById("monthly-rpt").checked;
     getRepeat(repeat, "month");
-    console.log(vals)
   }
   else if(timeChosen.value === "yearly"){
-    vals.push("yearly")
+    Object.assign(vals, {time_frame:"yearly"});
     getTime("year")
     let repeat = document.getElementById("yearly-rpt").checked;
     getRepeat(repeat, "year");
   }
   else if(timeChosen.value === "daily"){
-    vals.push("daily")
+    Object.assign(vals, {time_frame:"daily"});
+    let interval = scale.value;
+    Object.assign(vals, {time_interval:interval});
     let repeat = document.getElementById("daily-rpt").checked;
     getRepeat(repeat, "daily");
-    let interval = scale.value;
-    vals.push(interval);
   }
 }
 
 function getTime(time){
-  console.log("GETTIME FUNCTION CALLED");
-  const date = document.querySelector(`#${time}-interval`);
-  vals.push(date.value);
+  const due_date = document.querySelector(`#${time}-interval`);
+  Object.assign(vals, {date:due_date.value});
 }
 
 //need to get repeat, but also make sure no other checkbox is ticked
 function getRepeat(checked, time){
-  console.log("GETREPEAT FUNCTION CALLED")
   if (checked === false){
-    return;
+    Object.assign(vals, {repeat:"no repeat"});
   }
   else{
-    vals.push("repeat")
+    Object.assign(vals, {repeat:"repeat"});
   }
 }
+
+//Problem: even when form is not filled in properly, vals gets stored in localStorage
 function addTask(){
   timeSet();
-  const task = document.querySelector('#task').value;
-  vals.push(task);
-  localStorage.setItem(task, JSON.stringify(vals));
+  if(document.getElementById("form1").checkValidity() && document.getElementById("form2").checkValidity()){
+    let task = document.querySelector('#task').value;
+    Object.assign(vals, {task_name:task});
+    console.log(vals)
+    localStorage.setItem(task, JSON.stringify(vals));
+    vals = {}
+  } else{
+    console.log("forms invalid")
+  }
 }
+
+// Problem: tried to call via: displayCalendar(event), which the callback uses the return function
+//Solution: call w/: displayCalendar, this actually calls function, also use an anon func to call this func in the event listener and pass event as param
 function displayCalendar(thing){
   if (thing.target.value === 'daily') {
     document.getElementById('year-container').hidden = true;
     document.getElementById('month-container').hidden = true;
     document.getElementById('dailies-container').hidden = false;
+    document.getElementById('daily-interval').required = true;
   }
   else if(thing.target.value === ""){
     document.getElementById('year-container').hidden = true;
@@ -80,6 +89,7 @@ function displayCalendar(thing){
   else if(thing.target.value==="monthly"){
     document.getElementById('year-container').hidden = true;
     document.getElementById('month-container').hidden = false;
+    document.getElementById('month-interval').required = true;
     document.getElementById('dailies-container').hidden = true;
   }
   else if(thing.target.value==="yearly"){
@@ -88,8 +98,6 @@ function displayCalendar(thing){
     document.getElementById('dailies-container').hidden = true;
   }
 };
-// Problem: tried to call via: displayCalendar(event), which the callback uses the return function
-//Solution: call w/: displayCalendar, this actually calls function, also use an anon func to call this func in the event listener and pass event as param
 
 function clearStorage(){
   localStorage.clear();

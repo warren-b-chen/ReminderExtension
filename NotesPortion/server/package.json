@@ -1,0 +1,23 @@
+{
+  "name": "notesportion",
+  "version": "1.0.0",
+  "description": "notes tab for reminder app",
+  "main": "app.js",
+  "scripts": {
+    "test": "npm start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/warren-b-chen"
+  },
+  "author": "W. Brendan Chen",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "mysql": "^2.18.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.21"
+  }
+}

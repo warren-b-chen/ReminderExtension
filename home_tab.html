@@ -14,38 +14,40 @@
     <a href="tasks.html">Tasks and Reminders</a>
   </nav>
   <div id="task-container">
-    <label for="task" id="task-lbl">Task Name:</label>
-    <input id="task" placeholder="Enter Task Here" type="text">
-  </div>
-
-  <label for="time-select">Pick Time Interval: </label>
-  <select name="timeframe" id="time-select">
-    <option value="">--Please Select Interval of Repeat--</option>
-    <option value="daily">Daily</option>
-    <option value="monthly">Monthly</option>
-    <option value="yearly">Yearly</option>
-  </select>
-
-  <div id="dailies-container" hidden>
-    <label for="day-interval">Set Time Interval:</label>
-    <input id="daily-interval" type="range" min="1" max="120" value="0">
-    <p>Value: <span id="val-display"></span> min</p>
-    <label for="monthly-rpt">Repeat? </label>
-    <input type="checkbox" class ="time-choice" id="daily-rpt" value="Repeat">
-  </div>
-  <div id="month-container" hidden>
-    <label for="month-interval">Set Time Interval:</label>
-    <input id="month-interval" type="datetime-local">
-    <label for="monthly-rpt">Repeat Monthly: </label>
-    <input type="checkbox" class ="time-choice" id="monthly-rpt" value="Repeat">
-  </div>
-  <div id="year-container" hidden>
-    <label for="year-interval">Set Time Interval:</label>
-    <input id="year-interval" type="datetime-local">
-    <label for="yearly-rpt">Repeat Yearly: </label>
-    <input type="checkbox" class ="time-choice" id="yearly-rpt" value="Repeat">
-  </div>
-  <button id="set" onclick="addTask()">Add Task</button>
+    <form id="form1" target="_parent">
+        <label for="task" id="task-lbl">Task Name:</label>
+        <input id="task" placeholder="Enter Task Here" type="text" autocomplete="off" required>
+      <label for="time-select">Pick Time Interval: </label>
+      <select name="timeframe" id="time-select" required>
+        <option value="">--Please Select Interval of Repeat--</option>
+        <option value="daily">Daily</option>
+        <option value="monthly">Monthly</option>
+        <option value="yearly">Yearly</option>
+      </select>
+    </form>
+    <form id="form2" target="_parent">
+      <div id="dailies-container" hidden>
+        <label for="day-interval">Set Time Interval:</label>
+        <input id="daily-interval" type="range" min="1" max="120" value="0">
+        <p>Value: <span id="val-display"></span> min</p>
+        <label for="monthly-rpt">Repeat? </label>
+        <input type="checkbox" class ="time-choice" id="daily-rpt" value="Repeat">
+      </div>
+      <div id="month-container" hidden>
+        <label for="month-interval">Set Time Interval:</label>
+        <input id="month-interval" type="datetime-local">
+        <label for="monthly-rpt">Repeat Monthly: </label>
+        <input type="checkbox" class ="time-choice" id="monthly-rpt" value="Repeat">
+      </div>
+      <div id="year-container" hidden>
+        <label for="year-interval">Set Time Interval:</label>
+        <input id="year-interval" type="datetime-local">
+        <label for="yearly-rpt">Repeat Yearly: </label>
+        <input type="checkbox" class ="time-choice" id="yearly-rpt" value="Repeat">
+      </div>
+      <button id="set" onclick="addTask()">Add Task</button>
+    </form>
+</div>
   <button id="clear" onclick="clearStorage()">Clear</button>
 </body>
 </html>
