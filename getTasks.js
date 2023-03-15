@@ -19,6 +19,7 @@ else{
   noTasks.hidden = false;
 }
 
+
 const weekly_reminders = document.getElementById("weeklies");
 const daily_reminders = document.getElementById("dailies")
 //problem: calling createTaskRow/Data for each attrib of task obj
@@ -114,6 +115,18 @@ function removeTask(task_name, time_interval, event){
   else if(time_interval == "daily"){
     let rmv_child = document.getElementById(task_name);
     daily_reminders.removeChild(rmv_child);
+    localStorage.removeItem(task_name);
+    event.currentTarget.remove();
+  }
+  else if(time_interval == "yearly"){
+    let rmv_child = document.getElementById(task_name);
+    yearly_reminders.removeChild(rmv_child);
+    localStorage.removeItem(task_name);
+    event.currentTarget.remove();
+  }
+  else if(time_interval == "Intra-daily"){
+    let rmv_child = document.getElementById(task_name);
+    intra_daily_reminders.removeChild(rmv_child);
     localStorage.removeItem(task_name);
     event.currentTarget.remove();
   }

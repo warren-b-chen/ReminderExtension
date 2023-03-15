@@ -9,45 +9,63 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <!--Maybe a nav bar for switching the tabs?-->
-  <nav>
-    <a href="tasks.html">Tasks and Reminders</a>
-  </nav>
-  <div id="task-container">
-    <form id="form1" target="_parent">
-        <label for="task" id="task-lbl">Task Name:</label>
-        <input id="task" placeholder="Enter Task Here" type="text" autocomplete="off" required>
-      <label for="time-select">Pick Time Interval: </label>
-      <select name="timeframe" id="time-select" required>
-        <option value="">--Please Select Interval of Repeat--</option>
-        <option value="daily">Daily</option>
-        <option value="monthly">Monthly</option>
-        <option value="yearly">Yearly</option>
-      </select>
-    </form>
-    <form id="form2" target="_parent">
-      <div id="dailies-container" hidden>
-        <label for="day-interval">Set Time Interval:</label>
-        <input id="daily-interval" type="range" min="1" max="120" value="0">
-        <p>Value: <span id="val-display"></span> min</p>
-        <label for="monthly-rpt">Repeat? </label>
-        <input type="checkbox" class ="time-choice" id="daily-rpt" value="Repeat">
-      </div>
-      <div id="month-container" hidden>
-        <label for="month-interval">Set Time Interval:</label>
-        <input id="month-interval" type="datetime-local">
-        <label for="monthly-rpt">Repeat Monthly: </label>
-        <input type="checkbox" class ="time-choice" id="monthly-rpt" value="Repeat">
-      </div>
-      <div id="year-container" hidden>
-        <label for="year-interval">Set Time Interval:</label>
-        <input id="year-interval" type="datetime-local">
-        <label for="yearly-rpt">Repeat Yearly: </label>
-        <input type="checkbox" class ="time-choice" id="yearly-rpt" value="Repeat">
-      </div>
-      <button id="set" onclick="addTask()">Add Task</button>
-    </form>
+  <div class="content">
+    <nav>
+      <a href="tasks.html">Tasks and Reminders</a>
+      <a href="/NotesPortion/client/newtab.html">My Notes</a>
+    </nav>
+    <div id="task-container">
+      <form id="form1" target="_parent">
+        <div class="task-name-inp">
+          <div class="task-inp-container">
+            <label for="task" id="task-lbl">Task Name:</label>
+            <input id="task" placeholder="Enter Task Here" type="text" autocomplete="off" required>
+          </div>
+        </div>
+        <div class="time-select-container">
+          <label for="time-select">Pick Time Interval: </label>
+          <select name="timeframe" id="time-select" required>
+            <option value="">--Please Select Interval of Repeat--</option>
+            <option value="intradaily">Intra-daily</option>
+            <option value="daily">Daily</option>
+            <option value="monthly">Monthly</option>
+            <option value="yearly">Yearly</option>
+          </select>
+        </div>
+      </form>
+      <form id="form2" target="_parent">
+        <div id="intra-dailies-container" hidden>
+          <label for="intra-daily-interval">Set Time Interval:</label>
+          <input id="intra-daily-interval" type="range" min="1" max="360" value="0">
+          <div class="slider-container">
+            <p>Value: <span id="val-display"></span> min</p>
+          </div>
+          <label for="intra-daily-rpt">Repeat? </label>
+          <input type="checkbox" class ="time-choice" id="intra-daily-rpt" value="Repeat">
+        </div>
+        <div id="dailies-container" hidden>
+          <label class="time-interval-lbl" for="daily-interval">Set Time Interval:</label>
+          <input id="daily-interval" type="datetime-local">
+          <label class="rpt-lbl" for="daily-rpt">Repeat Monthly: </label>
+          <input type="checkbox" class ="time-choice" id="daily-rpt" value="Repeat">
+        </div>
+        <div id="month-container" hidden>
+          <label class="time-interval-lbl" for="month-interval">Set Time Interval:</label>
+          <input id="month-interval" type="datetime-local">
+          <label class="rpt-lbl" for="monthly-rpt">Repeat Monthly: </label>
+          <input type="checkbox" class ="time-choice" id="monthly-rpt" value="Repeat">
+        </div>
+        <div id="year-container" hidden>
+          <label class="time-interval-lbl" for="year-interval">Set Time Interval:</label>
+          <input id="year-interval" type="datetime-local">
+          <label class="rpt-lbl" for="yearly-rpt">Repeat Yearly: </label>
+          <input type="checkbox" class ="time-choice" id="yearly-rpt" value="Repeat">
+        </div>
+        <div class="add-task-btn-container">
+          <button id="set" onclick="addTask()">Add Task</button>
+        </div>
+      </form>
+  </div>
 </div>
-  <button id="clear" onclick="clearStorage()">Clear</button>
 </body>
 </html>

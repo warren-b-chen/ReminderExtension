@@ -10,9 +10,12 @@ app.use(cors()); //when we have incoming API call, it won't be blocked and we ca
 app.use(express.json()); //send it in JSON format
 app.use(express.urlencoded({ extended : false }));
 
-app.get('/getAll', (request, response)=>{
-  console.log("test")
+
+app.get('http://localhost:5500/NotesPortion/client/newtab.html/hi', (request, response)=>{
+  response.send("Hi")
 })
+
+app.
 
 app.listen(process.env.PORT, () => console.log("app is running"));
 

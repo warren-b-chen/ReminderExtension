@@ -6,7 +6,7 @@ const add_task = document.querySelector('#set');
   task = task_name;
 });*/
 
-let scale = document.getElementById("daily-interval");
+let scale = document.getElementById("intra-daily-interval");
 let scale_val = document.getElementById("val-display");
 scale_val.innerHTML = scale.value;
 function update_slider(){
@@ -28,18 +28,24 @@ function timeSet(){
     let repeat = document.getElementById("monthly-rpt").checked;
     getRepeat(repeat, "month");
   }
+  else if(timeChosen.value === "daily"){
+    Object.assign(vals, {time_frame:"daily"});
+    getTime("day")
+    let repeat = document.getElementById("daily-rpt").checked;
+    getRepeat(repeat, "day");
+  }
   else if(timeChosen.value === "yearly"){
     Object.assign(vals, {time_frame:"yearly"});
     getTime("year")
     let repeat = document.getElementById("yearly-rpt").checked;
     getRepeat(repeat, "year");
   }
-  else if(timeChosen.value === "daily"){
-    Object.assign(vals, {time_frame:"daily"});
+  else if(timeChosen.value === "intradaily"){
+    Object.assign(vals, {time_frame:"intradaily"});
     let interval = scale.value;
     Object.assign(vals, {time_interval:interval});
-    let repeat = document.getElementById("daily-rpt").checked;
-    getRepeat(repeat, "daily");
+    let repeat = document.getElementById("intra-daily-rpt").checked;
+    getRepeat(repeat, "intradaily");
   }
 }
 
@@ -74,25 +80,32 @@ function addTask(){
 
 // Problem: tried to call via: displayCalendar(event), which the callback uses the return function
 //Solution: call w/: displayCalendar, this actually calls function, also use an anon func to call this func in the event listener and pass event as param
-function displayCalendar(thing){
-  if (thing.target.value === 'daily') {
+function displayCalendar(time){
+  if (time.target.value === 'intradaily'){
+    document.getElementById('year-container').hidden = true;
+    document.getElementById('month-container').hidden = true;
+    document.getElementById('dailies-container').hidden = true;
+    document.getElementById('intra-dailies-container').hidden = false;
+    document.getElementById('intra-daily-interval').required = true;
+  }
+  else if (time.target.value === 'daily') {
     document.getElementById('year-container').hidden = true;
     document.getElementById('month-container').hidden = true;
     document.getElementById('dailies-container').hidden = false;
-    document.getElementById('daily-interval').required = true;
+    document.getElementById('intra-dailies-container').hidden = true;
   }
-  else if(thing.target.value === ""){
+  else if(time.target.value === ""){
     document.getElementById('year-container').hidden = true;
     document.getElementById('month-container').hidden = true;
     document.getElementById('dailies-container').hidden = true;
   }
-  else if(thing.target.value==="monthly"){
+  else if(time.target.value==="monthly"){
     document.getElementById('year-container').hidden = true;
     document.getElementById('month-container').hidden = false;
     document.getElementById('month-interval').required = true;
     document.getElementById('dailies-container').hidden = true;
   }
-  else if(thing.target.value==="yearly"){
+  else if(time.target.value==="yearly"){
     document.getElementById('year-container').hidden = false;
     document.getElementById('month-container').hidden = true;
     document.getElementById('dailies-container').hidden = true;
